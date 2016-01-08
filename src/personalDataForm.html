@@ -1,0 +1,13 @@
+<form [ngFormModel]="formGroup">
+    <label>Date de naissance</label>    
+    <input type="text" class="form-control" [(ngModel)]="birthDate" ngControl="birthDateControl" required placeholder="Enter a name here"><br>
+    <label>Etat civil</label>
+    <input type="text" class="form-control" [(ngModel)]="civilStatus" ngControl="civilStatusControl" required placeholder="Enter a name here">
+    <hr>
+    <h1 [hidden]="!birthDate">Hello {{birthDate}} !</h1>
+    <div *ngIf="birthDateControl.dirty && !birthDateControl.valid">
+        <p *ngIf="birthDateControl.errors.required">username is required.</p>
+        <p *ngIf="birthDateControl.errors.startsWithNumber">Your username can't start with a number</p>
+        <p *ngIf="birthDateControl.errors.hasWhiteSpace">Your username can't have a whitespace in it</p>
+    </div>
+</form>
