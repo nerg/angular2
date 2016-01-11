@@ -19,13 +19,11 @@ import { FormValidator } from './FormValidator.ts'
 
 export class App {
     
-    birthDate: string = '';
-    civilStatus: string = '';
-    
-    civilStatusControl = new Control(
-        this.civilStatus,
-        Validators.compose([Validators.required, FormValidator.startsWithNumber, FormValidator.hasWhiteSpace])
-    );
+    birthDate: string = '';   
+    civilStatus = ['Celibataire', 'Marie', 'Divorcé'];
+    nationality = ['Suisse', 'France', 'Allemagne'];
+    kids = [1,2,3,4,5,6,7,8,9];
+    retireAge = ['2 ans avant l\'âge de la retraite légal', 'âge de la retraite légal'];
     
     birthDateControl = new Control(
         this.birthDate,
@@ -33,7 +31,7 @@ export class App {
     );
 
     formGroup: ControlGroup = new ControlGroup({
-      birthDateControl: this.birthDateControl,
-      civilStatusControl: this.civilStatusControl
+      birthDateControl: this.birthDateControl
+      //, civilStatusControl: this.civilStatusControl
     });
 };

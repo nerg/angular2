@@ -1,13 +1,59 @@
-<form [ngFormModel]="formGroup">
-    <label>Date de naissance</label>    
-    <input type="text" class="form-control" [(ngModel)]="birthDate" ngControl="birthDateControl" required placeholder="Enter a name here"><br>
-    <label>Etat civil</label>
-    <input type="text" class="form-control" [(ngModel)]="civilStatus" ngControl="civilStatusControl" required placeholder="Enter a name here">
-    <hr>
-    <h1 [hidden]="!birthDate">Hello {{birthDate}} !</h1>
-    <div *ngIf="birthDateControl.dirty && !birthDateControl.valid">
-        <p *ngIf="birthDateControl.errors.required">username is required.</p>
-        <p *ngIf="birthDateControl.errors.startsWithNumber">Your username can't start with a number</p>
-        <p *ngIf="birthDateControl.errors.hasWhiteSpace">Your username can't have a whitespace in it</p>
+<h1>Données personnelles</h1>
+<form [ngFormModel]="formGroup" class="form-horizontal">
+  <div class="form-group">
+    <label for="birthDateControl" class="col-sm-2 control-label">Date de naissance</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="birthDate" ngControl="birthDateControl" id="birthDateControl" required placeholder="Enter a name here">
+      <div *ngIf="birthDateControl.dirty && !birthDateControl.valid" class="alert alert-danger">
+          <p *ngIf="birthDateControl.errors.required">username is required.</p>
+          <p *ngIf="birthDateControl.errors.startsWithNumber">Your username can't start with a number</p>
+          <p *ngIf="birthDateControl.errors.hasWhiteSpace">Your username can't have a whitespace in it</p>
+      </div>
     </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Sexe</label>
+    <div class="col-sm-10">
+      <label class="radio-inline">
+        <input type="radio" name="sex" id="sexf" value="f"> Féminin
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="sex" id="sexm" value="m"> Masculin
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="civilStatus" class="col-sm-2 control-label">Etat civil</label>
+    <div class="col-sm-10">
+    <select id="civilStatus" class="form-control" [(ngModel)]="civilStatus">
+      <option *ngFor="#c of civilStatus" [value]="c">{{c}}</option>
+    </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="nationality" class="col-sm-2 control-label">Nationalité</label>
+    <div class="col-sm-10">
+    <select id="nationality" class="form-control" required [(ngModel)]="nationality">
+      <option *ngFor="#n of nationality" [value]="n">{{n}}</option>
+    </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="kids" class="col-sm-2 control-label">Enfant(s)</label>
+    <div class="col-sm-10">
+    <select id="kids" class="form-control" [(ngModel)]="kids">
+      <option *ngFor="#k of kids" [value]="k">{{k}}</option>
+    </select>
+    </div>
+  </div>   
+  <div class="form-group">
+    <label for="retireAge" class="col-sm-2 control-label">Age de la retraite</label>
+    <div class="col-sm-10">
+    <select id="retireAge" class="form-control" [(ngModel)]="retireAge">
+      <option *ngFor="#r of retireAge" [value]="r">{{r}}</option>
+    </select>
+    </div>
+  </div>
+  <hr>
+  <h1 [hidden]="!birthDate">Hello {{birthDate}} !</h1>
 </form>
