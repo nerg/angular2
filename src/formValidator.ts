@@ -19,4 +19,13 @@ export class FormValidator {
       }    
       return null;
     }
+    
+    static isNotDate(control: Control): ValidationResult {
+            var datePat = /^(\d{1,2})(\/|\.)(\d{1,2})\2(\d{4})$/;
+            var matchArray = control.value.match(datePat);
+            if (control.value !="" && matchArray == null) {
+                return {"isNotDate": true};
+            } 
+            return null; 
+    }
 }

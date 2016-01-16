@@ -27,7 +27,7 @@ export class App {
     
     birthDateControl = new Control(
         this.birthDate,
-        Validators.compose([Validators.required, FormValidator.startsWithNumber, FormValidator.hasWhiteSpace])
+        Validators.compose([Validators.required, FormValidator.isNotDate])
     );
 
     formGroup: ControlGroup = new ControlGroup({

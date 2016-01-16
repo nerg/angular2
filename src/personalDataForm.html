@@ -3,11 +3,10 @@
   <div class="form-group">
     <label for="birthDateControl" class="col-sm-2 control-label">Date de naissance</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="birthDate" ngControl="birthDateControl" id="birthDateControl" required placeholder="Enter a name here">
-      <div *ngIf="birthDateControl.dirty && !birthDateControl.valid" class="alert alert-danger">
-          <p *ngIf="birthDateControl.errors.required">username is required.</p>
-          <p *ngIf="birthDateControl.errors.startsWithNumber">Your username can't start with a number</p>
-          <p *ngIf="birthDateControl.errors.hasWhiteSpace">Your username can't have a whitespace in it</p>
+      <input type="text" class="form-control" [class.error]="!birthDateControl.valid && birthDateControl.dirty" [(ngModel)]="birthDate" ngControl="birthDateControl" id="birthDateControl" required placeholder="JJ.MM.AAAA">
+      <div *ngIf="birthDateControl.touched && !birthDateControl.valid" class="alert alert-danger">
+          <p *ngIf="birthDateControl.errors.required">Date de naissance requise</p>
+          <p *ngIf="birthDateControl.errors.isNotDate">La date de naissance n'est pas au bon format (JJ.MM.AAAA)</p>
       </div>
     </div>
   </div>
