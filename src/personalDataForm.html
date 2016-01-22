@@ -1,58 +1,99 @@
-<h1>Données personnelles</h1>
-<div *ngIf="birthDateControl.touched && !birthDateControl.valid" class="alert alert-danger">
-    <p *ngIf="birthDateControl.errors.required">Date de naissance requise</p>
-    <p *ngIf="birthDateControl.errors.isNotDate">La date de naissance n'est pas au bon format (JJ.MM.AAAA)</p>
-</div>
-<form [ngFormModel]="formGroup" class="form-horizontal">
+<form [ngFormModel]="formGroup"
+      (ngSubmit)="onSubmit(formGroup.value)"
+      class="form-horizontal">
   <div class="form-group">
-    <label for="birthDateControl" class="col-sm-2 control-label">Date de naissance</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [class.error]="!birthDateControl.valid && birthDateControl.dirty" [(ngModel)]="birthDate" ngControl="birthDateControl" id="birthDateControl" required placeholder="JJ.MM.AAAA">
+    <h2 class="col-sm-9 col-sm-offset-3">Données personnelles</h2>
+  </div>
+  <div *ngIf="birthdate.touched && !birthdate.valid" class="col-sm-9 col-sm-offset-3 alert alert-danger">
+      <p *ngIf="birthdate.errors.required">Date de naissance requise</p>
+      <p *ngIf="birthdate.errors.isNotDate">La date de naissance n'est pas au format JJ.MM.AAAA</p>
+  </div>
+  <div *ngIf="birthdatePartner.touched && !birthdatePartner.valid" class="col-sm-9 col-sm-offset-3 alert alert-danger">
+      <p *ngIf="birthdatePartner.errors.required">Date de naissance du conjoint requise</p>
+      <p *ngIf="birthdatePartner.errors.isNotDate">La date de naissance du conjoint n'est pas au format JJ.MM.AAAA</p>
+  </div>
+  <div class="form-group">
+    <label for="birthdateInput" class="col-sm-3 control-label">Date de naissance</label>
+    <div class="col-sm-9">
+      <input type="text" 
+             id="birthdateInput"
+             placeholder="JJ.MM.AAAA"
+             [ngFormControl]="birthdate"
+             [class.error]="!birthdate.valid && birthdate.touched"
+             class="form-control">
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Sexe</label>
-    <div class="col-sm-10">
-      <label class="radio-inline">
-        <input type="radio" name="sex" id="sexf" value="f"> Féminin
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="sex" id="sexm" value="m"> Masculin
-      </label>
+    <label for="civilstatusSelect" class="col-sm-3 control-label">Etat civil</label>
+    <div class="col-sm-9">
+    <select id="civilstatusSelect"
+            [ngFormControl]="civilstatus"
+            class="form-control">
+      <option *ngFor="#c of civilstatusList" [value]="c">{{c}}</option>
+    </select>
+    </div>
+  </div>
+  <div *ngIf="civilstatus.value == 'Marié'" class="form-group" >
+    <label for="birthdatePartnerInput" class="col-sm-3 control-label">Date de naissance du conjoint</label>
+    <div class="col-sm-9">
+      <input type="text" 
+             id="birthdatePartnerInput"
+             placeholder="JJ.MM.AAAA"
+             [ngFormControl]="birthdatePartner"
+             [class.error]="!birthdatePartner.valid && birthdatePartner.touched"
+             class="form-control">
     </div>
   </div>
   <div class="form-group">
-    <label for="civilStatus" class="col-sm-2 control-label">Etat civil</label>
-    <div class="col-sm-10">
-    <select id="civilStatus" class="form-control" [(ngModel)]="civilStatus">
-      <option *ngFor="#c of civilStatus" [value]="c">{{c}}</option>
+    <label for="nationalitySelect" class="col-sm-3 control-label">Nationalité</label>
+    <div class="col-sm-9">
+    <select id="nationalitySelect" 
+            [ngFormControl]="nationality"
+            class="form-control">
+      <option *ngFor="#n of nationalityList" [value]="n">{{n}}</option>
     </select>
     </div>
   </div>
   <div class="form-group">
-    <label for="nationality" class="col-sm-2 control-label">Nationalité</label>
-    <div class="col-sm-10">
-    <select id="nationality" class="form-control" required [(ngModel)]="nationality">
-      <option *ngFor="#n of nationality" [value]="n">{{n}}</option>
+    <label for="retireageSelect" class="col-sm-3 control-label">Age de la retraite</label>
+    <div class="col-sm-9">
+    <select id="retireageSelect" 
+            [ngFormControl]="retireage"
+            class="form-control">
+      <option *ngFor="#r of retireageList" [value]="r">{{r}}</option>
     </select>
     </div>
   </div>
   <div class="form-group">
-    <label for="kids" class="col-sm-2 control-label">Enfant(s)</label>
-    <div class="col-sm-10">
+    <div class="col-sm-9 col-sm-offset-3">
+      <button type="submit" [disabled]="!formGroup.valid" class="btn btn-default">Submit</button>
+    </div>
+  </div>
+<!-- input radio ne marche pas, en attente d'un fix d'angular2
+  <div class="form-group">
+    <label class="col-sm-3 control-label">Sexe</label>
+    <div class="col-sm-9">
+      <label class="radio-inline">
+        <input type="radio" 
+               [ngFormControl]="gender"
+               name="gender" 
+               value="Female"> Féminin
+      </label>
+      <label class="radio-inline">
+        <input type="radio"
+               [ngFormControl]="gender"
+               name="gender"
+               value="Male"> Masculin
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="kids" class="col-sm-3 control-label">Enfant(s)</label>
+    <div class="col-sm-9">
     <select id="kids" class="form-control" [(ngModel)]="kids">
       <option *ngFor="#k of kids" [value]="k">{{k}}</option>
     </select>
     </div>
   </div>   
-  <div class="form-group">
-    <label for="retireAge" class="col-sm-2 control-label">Age de la retraite</label>
-    <div class="col-sm-10">
-    <select id="retireAge" class="form-control" [(ngModel)]="retireAge">
-      <option *ngFor="#r of retireAge" [value]="r">{{r}}</option>
-    </select>
-    </div>
-  </div>
-  <hr>
-  <h1 [hidden]="!birthDate && false">Vous êtes né le {{birthDate}}!</h1>
+-->
 </form>
